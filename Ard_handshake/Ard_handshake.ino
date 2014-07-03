@@ -1,5 +1,3 @@
-// ARDUINO CODE
-
 // Example 1 - Hello World - Blinking LED
 
 const int LED = 12; // LED connected to digital pin 13
@@ -34,3 +32,4 @@ void establishContact() {
     delay(500);
   }
 }
+

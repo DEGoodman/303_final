@@ -1,8 +1,18 @@
 303_final
 =========
 
+Workflow:
 
-Arduino Sensors to use:
+	Processing code
+		/Proc_handshake/Proc_handshake.pde
+		
+	Arduino code
+		/Ard_handshake/Ard_handshake.ino
+		
+		
+TODO:
+
+	Arduino Sensors to use:
 
 		joystick
 		temp/humidity
@@ -10,7 +20,7 @@ Arduino Sensors to use:
 		sound sensor
 		2x tilt sensor
 
-Processing
+	Processing
 
 		minim library for audio analysis
 		Use microphone on laptop for input
