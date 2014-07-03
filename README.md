@@ -13,3 +13,4 @@ Arduino Sensors to use:
 Processing
 
 		minim library for audio analysis
+		Use microphone on laptop for input
