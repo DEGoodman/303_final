@@ -4,15 +4,15 @@
 Workflow:
 
 	Processing code
-		/Proc_handshake/Proc_handshake.pde
+		/Processing/main.pde
 		
 	Arduino code
-		/Ard_handshake/Ard_handshake.ino
+		/Arduino/Control_panel.ino
 		
 		
 TODO:
 
-	Arduino Sensors to use:
+	Arduino Sensors to use?:
 
 		joystick
 		temp/humidity
