@@ -37,7 +37,7 @@ void draw() {
 //  }  
   
  // println(vals[0]);
-  fill(0, 0, 100, 1); //slightly transparent
+  fill(0, 100, 100, 1); //slightly transparent
   rect(0, 0, width, height);
   
   //draw circles
@@ -47,7 +47,7 @@ void draw() {
 } 
 
 void setBaseCircles() { //static for now, can be adjusted later
-  numCircles = 7;
+  numCircles = 150;
   rounds = new Round[numCircles];
   println("making circles");
   for(int i = 0; i < numCircles; i++) {
@@ -65,11 +65,11 @@ class Round {
     this.xPos = xPos;
     this.yPos = yPos;
     this.rad = rad;
-    this.col = col;
+    this.col = col + random(80) - 40;
   }
 
   void drawCircle() {
-    fill(col, 36, 74, 10); // very transparent, makes color over time
+    fill(col, 36, 74, 5); // very transparent, makes color over time
     
     //change from random to noise
     float xDelta = random(40) - 20;
