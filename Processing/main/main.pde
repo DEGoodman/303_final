@@ -1,19 +1,24 @@
 // creates visual design. Reads and interprets data from Arduino
-
+import org.firmata.*;
+import cc.arduino.*;
 import processing.serial.*;
 
-Serial myPort;
+Arduino arduino;
 int vals; //will have to parse values
 
 int numCircles;
 Round[] rounds;
 
+// sensors
+int pot;
+int lightRes;
+
 void setup() {
   size(800, 600, P2D);
   //Arduino comm
-  println(Serial.list()); 
-  myPort = new Serial(this, Serial.list()[5], 9600);
-  myPort.bufferUntil('\n');
+  println(Arduino.list()); 
+  arduino = new Arduino(this, Arduino.list()[1], 57600);
+ // myPort.bufferUntil('\n');
   
   // array of values from arduino
   //vals;
@@ -30,12 +35,19 @@ void setup() {
 }
 
 void draw() {
-  // read in Serial data 
-  if( myPort.available() > 0 ) {
-    vals = myPort.read(); // potentiometer
-    //vals[1] = myPort.read();
-    println(vals);
-  }  
+  // read sensor data
+  pot = arduino.analogRead(0);
+  
+  lightRes = arduino.analogRead(1);
+  
+  println(pot + "," + lightRes);
+  
+//  // read in Serial data 
+//  if( myPort.available() > 0 ) {
+//    vals = myPort.read(); // potentiometer
+//    //vals[1] = myPort.read();
+//    println(vals);
+//  }  
   
  // println(vals[0]);
   fill(0, 85, 100, 5); //slightly transparent

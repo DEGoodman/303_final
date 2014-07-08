@@ -1,13 +1,10 @@
 303_final
 =========
 
-Workflow:
+Creates visual designs. Reads and interprets data from Arduino
 
-	Processing code
-		/Processing/main.pde
-		
-	Arduino code
-		/Arduino/Control_panel.ino
+Arduino runs StandardFirmata program.
+Processing now reads data directly from Arduino board.
 		
 		
 TODO:
