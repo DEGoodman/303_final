@@ -2,8 +2,11 @@
 import org.firmata.*;
 import cc.arduino.*;
 import processing.serial.*;
+import ddf.minim.*;
 
 Arduino arduino;
+Minim minim;
+AudioInput in;
 int vals; //will have to parse values
 
 int numCircles;
@@ -15,6 +18,10 @@ int lightRes;
 
 void setup() {
   size(800, 600, P2D);
+  
+  minim = new Minim(this);
+  in = minim.getLineIn();
+  
   //Arduino comm
   println(Arduino.list()); 
   arduino = new Arduino(this, Arduino.list()[1], 57600);
@@ -41,7 +48,7 @@ void draw() {
   lightRes = arduino.analogRead(1);
   
   println(pot + "," + lightRes);
-  
+  println(in.mix.level()*100); // prints 
 //  // read in Serial data 
 //  if( myPort.available() > 0 ) {
 //    vals = myPort.read(); // potentiometer
