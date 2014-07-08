@@ -16,6 +16,7 @@ TODO:
 	visualization generics
 
 	BOUNCING BALLS
+		see Bouncing_Balls_ex.pde
 
 	
 
