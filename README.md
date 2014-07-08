@@ -12,12 +12,19 @@ Workflow:
 		
 TODO:
 
+
+	visualization generics
+
+	BOUNCING BALLS
+
+	
+
 	Arduino Sensors to use?:
 
 		joystick - hold
 		
 		temp/humidity - background colors (hue/sat/etc)
-		potentiometer - alpha of circles
+		potentiometer - alpha of circles (or speed of circles)
 		photo-resistor - quantity of circles
 		
 		2x tilt sensor -  hold modify pitch/something of input
