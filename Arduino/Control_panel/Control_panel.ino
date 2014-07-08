@@ -17,13 +17,13 @@ void setup() {
 void loop() {
   pot = analogRead(A0);
   // map pot values to Processing values
-  pot = map(pot, 0, 1023, 0, 255);
-  allVals[0] = pot;
+  //pot = map(pot, 0, 1023, 0, 255);
+  //allVals[0] = pot;
   
 //  button = digitalRead(buttonLoc);
 //  allVals[1] = button;
   // make contact
-  Serial.write(allVals[0]);
+  Serial.write(pot);
   //Serial.write(allVals[1]);
   delay(100);
 }  

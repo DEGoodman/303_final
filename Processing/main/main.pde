@@ -3,22 +3,23 @@
 import processing.serial.*;
 
 Serial myPort;
-float[] vals; //will have to parse values
+int vals; //will have to parse values
 
 int numCircles;
 Round[] rounds;
 
 void setup() {
+  size(800, 600, P2D);
   //Arduino comm
-  //println(Serial.list()); 
-  //myPort = new Serial(this, Serial.list()[1], 9600);
-  //myPort.bufferUntil('\n');
+  println(Serial.list()); 
+  myPort = new Serial(this, Serial.list()[5], 9600);
+  myPort.bufferUntil('\n');
   
   // array of values from arduino
-  vals = new float[2];
+  //vals;
   
   //visuals
-  size(800, 600, P2D);
+  
   colorMode(HSB, 360, 100, 100, 500 );
   //frameRate(5);
     
@@ -30,10 +31,11 @@ void setup() {
 
 void draw() {
   // read in Serial data 
-//  if( myPort.available() > 0 ) {
-//    vals[0] = myPort.read(); // potentiometer
-//    //vals[1] = myPort.read();
-//  }  
+  if( myPort.available() > 0 ) {
+    vals = myPort.read(); // potentiometer
+    //vals[1] = myPort.read();
+    println(vals);
+  }  
   
  // println(vals[0]);
   fill(0, 85, 100, 5); //slightly transparent
