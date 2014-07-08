@@ -16,13 +16,17 @@ void setup() {
 void loop() {
   //potentiometer
   pot = analogRead(A0);
-  //allVals[0] = pot;
-
+  allVals[0] = pot;
+  delay(10);
+  
   //photoresistor
   light = analogRead(A1);
-  // make contact
-  //Serial.println(pot);
+  allVals[1] = light;
   delay(10);
-  Serial.println(light);
+  
+  //Serial.print(pot);
+  //Serial.println(light);
+  String printer = String(allVals[0]) + "," + String(allVals[1]);
+  Serial.println(printer);
   delay(100);
-}  
+}

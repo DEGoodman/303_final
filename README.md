@@ -1,11 +1,13 @@
 303_final
-=========
+---
 
 Creates visual designs. Reads and interprets data from Arduino
 
+
 Arduino runs StandardFirmata program.
 Processing now reads data directly from Arduino board.
-		
+
+---		
 		
 TODO:
 
@@ -21,11 +23,13 @@ TODO:
 
 		joystick - hold
 		
-		temp/humidity - background colors (hue/sat/etc)
-		potentiometer - alpha of circles (or speed of circles)
-		photo-resistor - quantity of circles
+		~~temp~~ - background colors (hue/sat/etc)
+		~~potentiometer~~ - alpha of circles (or speed of circles)
+		~~photo-resistor~~ - quantity of circles
 		
 		2x tilt sensor -  hold modify pitch/something of input
+		
+		platform for interactive sensors
 
 	Processing
 
