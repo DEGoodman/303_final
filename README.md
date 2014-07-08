@@ -14,13 +14,21 @@ TODO:
 
 	Arduino Sensors to use?:
 
-		joystick
-		temp/humidity
-		potentiometer
-		sound sensor
-		2x tilt sensor
+		joystick - hold
+		
+		temp/humidity - background colors (hue/sat/etc)
+		potentiometer - alpha of circles
+		photo-resistor - quantity of circles
+		
+		2x tilt sensor -  hold modify pitch/something of input
 
 	Processing
 
 		minim library for audio analysis
 		Use microphone on laptop for input
+		
+		MINIM
+		AudioRecorder
+		AudioInput
+		BeatDetect
+		FFT (maybe)
