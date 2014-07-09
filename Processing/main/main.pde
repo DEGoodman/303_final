@@ -2,10 +2,13 @@
 import org.firmata.*;
 import cc.arduino.*;
 import processing.serial.*;
+import ddf.minim.*;
 
 Arduino arduino;
 int vals; // will have to parse values
 int temp; // temporary value location, to save memory
+Minim minim;
+AudioInput in;
 
 int numCircles;
 Round[] rounds;
@@ -25,7 +28,11 @@ void setup() {
   // array of values from arduino
   //vals;
   
+  
   //visuals
+  minim = new Minim(this);
+  in = minim.getLineIn();
+  
   
   colorMode(HSB, 360, 100, 100, 500 );
   //frameRate(5);
