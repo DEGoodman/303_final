@@ -2,12 +2,10 @@
 import org.firmata.*;
 import cc.arduino.*;
 import processing.serial.*;
-import ddf.minim.*;
 
 Arduino arduino;
-Minim minim;
-AudioInput in;
-int vals; //will have to parse values
+int vals; // will have to parse values
+int temp; // temporary value location, to save memory
 
 int numCircles;
 Round[] rounds;
@@ -15,13 +13,10 @@ Round[] rounds;
 // sensors
 int pot;
 int lightRes;
+int temperature;
 
 void setup() {
   size(800, 600, P2D);
-  
-  minim = new Minim(this);
-  in = minim.getLineIn();
-  
   //Arduino comm
   println(Arduino.list()); 
   arduino = new Arduino(this, Arduino.list()[1], 57600);
@@ -43,20 +38,10 @@ void setup() {
 
 void draw() {
   // read sensor data
-  pot = arduino.analogRead(0);
+  getArduinoData();
   
-  lightRes = arduino.analogRead(1);
+ 
   
-  println(pot + "," + lightRes);
-  println(in.mix.level()*100); // prints 
-//  // read in Serial data 
-//  if( myPort.available() > 0 ) {
-//    vals = myPort.read(); // potentiometer
-//    //vals[1] = myPort.read();
-//    println(vals);
-//  }  
-  
- // println(vals[0]);
   fill(0, 85, 100, 5); //slightly transparent
   rect(0, 0, width, height);
   
@@ -64,7 +49,31 @@ void draw() {
   for(int i = 0; i < numCircles; i++) {
     rounds[i].drawCircle();
   }  
+}
+
+void getArduinoData(){
+  pot = getPot();
+  lightRes = getLight();
+  temperature = getTemp();
+  
+  println(pot + ", " + lightRes + ", " + temperature);
 } 
+
+int getPot() {
+  temp = arduino.analogRead(0);
+  // calculations
+  return temp;
+}  
+
+int getLight() {
+  temp = arduino.analogRead(1);
+  return temp;
+}  
+
+int getTemp(){
+  temp = arduino.analogRead(2);
+  return temp;
+}  
 
 void setBaseCircles() { //static for now, can be adjusted later
   numCircles = 150;
