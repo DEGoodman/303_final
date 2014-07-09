@@ -117,8 +117,8 @@ class Round {
     //change from random to noise
    // float xDelta = random(40) - 20;
   //  float yDelta = random(40) - 20;
-    dirX = sqrt(pow(xDelta, 2))*6
-    dirY = sqrt(pow(yDelta, 2))*6; // radius is distanse of position change
+    dirX = sqrt(pow(dirX, 2))*6
+    dirY = sqrt(pow(dirY, 2))*6; // radius is distanse of position change
     ellipse(xPos + dirX, yPos + dirY, dia, dia);
   }
 
