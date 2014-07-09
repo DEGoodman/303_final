@@ -86,31 +86,40 @@ void setBaseCircles() { //static for now, can be adjusted later
   numCircles = 150;
   rounds = new Round[numCircles];
   for(int i = 0; i < numCircles; i++) {
-    rounds[i] = new Round(random(width - 30) + 15, random(height - 30) + 15, 200.0, 179.0); // random position, standard start radius, solid color. Will change to map to sensor later
-  }  
+    //rounds[i] = new Round(random(width - 30) + 15, random(height - 30) + 15, 200.0, 179.0); // random position, standard start radius, solid color. Will change to map to sensor later
+    rounds[i]  = new Round(random(width - 30) + 15, random(height - 30) + 15, random(width - 60) + 30, random(height - 60) + 30, in.mix.level()*100, getTemp(), getPot());  
+}  
 }  
 
 class Round {
   float xPos;
   float yPos;
-  float rad;
+  float dirX;
+  float dirY;
+  float dia;
   float col;
+  float alph;
   
-  Round(float xPos, float yPos, float rad, float col) {
+  Round(float xPos, float yPos, float dirX, float dirY, float dia, float col, float alph) {
     this.xPos = xPos;
     this.yPos = yPos;
-    this.rad = rad;
-    this.col = col + random(80) - 40;
+    this.dirX = dirX;
+    this.dirY = dirY;
+    this.dia = dia;
+    this.col = col;
+    this.alph = alph;
   }
 
   void drawCircle() {
     fill(col, 36, 74, 11); // very transparent, makes color over time
+    alpha(alph);
     
     //change from random to noise
-    float xDelta = random(40) - 20;
-    float yDelta = random(40) - 20;
-    rad = sqrt(pow(xDelta, 2) + pow(yDelta, 2))*6; // radius is distanse of position change
-    ellipse(xPos + xDelta, yPos + yDelta, rad, rad);
+   // float xDelta = random(40) - 20;
+  //  float yDelta = random(40) - 20;
+    dirX = sqrt(pow(xDelta, 2))*6
+    dirY = sqrt(pow(yDelta, 2))*6; // radius is distanse of position change
+    ellipse(xPos + dirX, yPos + dirY, dia, dia);
   }
 
   void changeCol(int newCol){
