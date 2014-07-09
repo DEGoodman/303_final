@@ -121,11 +121,17 @@ class Round {
     //change from random to noise
    // float xDelta = random(40) - 20;
   //  float yDelta = random(40) - 20;
+<<<<<<< HEAD
     //dirX = sqrt(pow(dirX, 2))*6;
     //dirY = sqrt(pow(dirY, 2))*6; // radius is distanse of position change
     
     dia = pow((in.mix.level() + 1)*2,6);
     ellipse(xPos, yPos, dia, dia);
+=======
+    dirX = sqrt(pow(dirX, 2))*6;
+    dirY = sqrt(pow(dirY, 2))*6; // radius is distanse of position change
+    ellipse(xPos + dirX, yPos + dirY, dia, dia);
+>>>>>>> 8e7705e4ce2a6786b205a849e01f9d6bbcf3cf9c
   }
 
   void changeCol(int newCol){
