@@ -12,10 +12,9 @@ AudioInput in;
 
 int numCircles;
 Round[] rounds;
-//float xincrement = 0.0007; 
-//float yincrement = 0.0007;
-float xincrement = 0.001; 
-float yincrement = 0.001;
+float xincrement = 0.0007; 
+float yincrement = 0.0007;
+
 
 // sensors
 int pot;
@@ -23,6 +22,7 @@ int lightRes;
 int temperature;
 int seed = 0;
 int counter = 0;
+int hue;
 
 void setup() {
   size(800, 600, P2D);
@@ -45,36 +45,37 @@ void setup() {
   smooth();
   setBaseCircles(); //create starter circles 
   
-  int hue = int(map(getTemp(), 0, 100, 250, 0));
+  hue = int(map(getTemp(), 0, 100, 350, 10));
+  hue += (1 - floor(random(3)))*120;
+  hue = (hue + 360) % 360;
   background(hue, 40, 12);
 }
 
 void draw() {
   // read sensor data
   getArduinoData();
+  int gain = getGainLevel();
+  println("gain: " + gain);
   float potVals = map(getPot(), 0, 1023, -1, 1);
   println("potVals: " + potVals);
-
-  //fill(getTemp() + floor(random(10)) + 50, 85, 100, 5); //slightly transparent
-  //rect(0, 0, width, height);
-
-  //xincrement = in.mix.level()/4 + 0.0003;//; + potVals*10000;
-  //yincrement = in.mix.level()/4 + 0.0003;// + potVals*10000;
+ 
+  xincrement = in.mix.level()/10 - 0.0004 + potVals/120;
+  yincrement = in.mix.level()/10 - 0.0004 + potVals/120;
 
   for (int i = 0; i < numCircles; i++) { 
     //draw circles
     rounds[i].updateDir();
-    rounds[i].drawCircle();
+    rounds[i].drawCircle(gain); // use getGainValue info here
     //drawlines
-    counter++;
-    //if (counter%2==0) {
+    //counter++;
+    //if (counter%5==0) {
       for (int j = 0; j < numCircles; j+=7) {
         counter++;
-        //if (counter%3==0) {
+        if (counter%2==0) {
           int newCol = int((rounds[i].col + rounds[j].col)/2);
-          stroke(newCol, 20, 97, 2);
+          stroke(newCol, 14, 99, 5);
           line(rounds[i].xPos, rounds[i].yPos, rounds[j].xPos, rounds[j].yPos );
-        //}
+        }
       }
     //}
   }
@@ -87,8 +88,30 @@ void getArduinoData() {
   lightRes = getLight();
   temperature = getTemp();
 
-  println(pot + ", " + lightRes + ", " + temperature);
+  println("pot: " + pot + ", " + "lightRes: " + lightRes + ", " + "temperature: "  + temperature);
 } 
+
+int getGainLevel() {
+  /* I can normalize the 'gain' (here, the power) by making an array and reading in the levels, and take average.
+     * can update the array (array[i] = array[i+1], array[last] = new level), then average results
+     * scale accordingly to get reasonable 'power'
+     */
+
+
+ float maxVolume = in.mix.level();
+    
+  // scale maxVolume for MAX GAINZ!!!!  0.02-0.14
+  if (maxVolume <= 0.02)
+    return 65;
+  else if (maxVolume <= 0.05)
+    return 50;
+  else if (maxVolume <= 0.10)
+    return 35;  
+  else if (maxVolume <= 0.20)
+    return 25;
+  else
+    return 18;
+}  
 
 int getPot() {
   temp = arduino.analogRead(0);
@@ -112,26 +135,27 @@ int getTemp() {
 
 void setBaseCircles() { //static for now, can be adjusted later
   //numCircles = getTemp();
-  numCircles = 5;
+  numCircles = 6;
   rounds = new Round[numCircles];
   for (int i = 0; i < numCircles; i++) {
     seed++;
     randomSeed(seed);
     //rounds[i]  = new Round(random(width - 30) + 15, random(height - 30) + 15, floor(random(3)) - 1, floor(random(3)) - 1, 200, arduino.analogRead(2), 255);  
-    //rounds[i] = new Round(random(width), random(height), 5- floor(random(10)) , 5- floor(random(10)), 1, 100, 500);
-    rounds[i] = new Round(random(seed, width-seed), random(seed, height-seed), 5- floor(random(10)), 5- floor(random(10)), 1, floor(random(360)), 500);
+    rounds[i] = new Round(random(seed, width-seed), random(seed, height-seed), 5- floor(random(10)), 5- floor(random(10)), 1, hue, 500);
   }
 } 
 
 // save image and reset
 void keyReleased() {
   if ( key == 's' || key == 'S' ) {
-    //saveFrame("lines-######.png");
+    saveFrame("lines-######.png");
     seed++;
     randomSeed(seed);
     setBaseCircles();
     
-    int hue = int(map(getTemp(), 0, 100, 250, 0));
+    hue = int(map(getTemp(), 0, 100, 350, 10));
+    hue += (1 - floor(random(3)))*60;
+    hue = (hue + 360) % 360;
     background(hue, 40, 12);
   }
 }  
@@ -155,24 +179,24 @@ class Round {
     this.alph = int(alph);
   }
 
-  void drawCircle() {
+  void drawCircle(int gain) {
+    int bright = int(getLight()/10);
+    //int sat = int(map(in.mix.level(), 0, 0.15, 0, 100));
     noStroke();
-    col += 1 - floor(random(3));
-    col = (col + 360) % 360;
-    fill(col, getLight()/12, (1023 - getLight())/12, 3); // very transparent, makes color over time
-    //alpha(alph);
-
-
-    /* I can normalize the 'gain' (here, the power) by making an array and reading in the levels, and take average.
-     * can update the array (array[i] = array[i+1], array[last] = new level), then average results
-     * scale accordingly to get reasonable 'power'
-     */
-    dia = pow((in.mix.level() + 1.01), 20);
+    if (counter%1333 == 0) {
+      col += (1 - floor(random(3)))*120;
+      col = (col + 360) % 360;
+    }
+    fill(col, 100 - bright, 130 - bright, 3);
+    
+    dia = pow((in.mix.level() + 1.012), gain);
     if (dia > 20) { //control for large values to avoid washing out entire screen
+      fill(col, 100 - bright, 120 - bright, 2);
+    }
+    if ( dia > 200) {
+      dia = 200;
       fill(col, 40, 70, 1);
     }
-    if ( dia > 200)
-      dia = 200;
     ellipse(xPos, yPos, dia, dia);
   }
 
