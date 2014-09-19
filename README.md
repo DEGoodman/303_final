@@ -1,43 +1,10 @@
 303_final
 ---
 
-Creates visual designs. Reads and interprets data from Arduino
+This is an environmental interpreter.
+
+The system reads and interprets environmental data from Arduino, and passes it to Processing. Processing uses onboard microphone to pick up audio, and is displayed visually. Visual characteristics are determined by environmental data.
 
 
 Arduino runs StandardFirmata program.
-Processing now reads data directly from Arduino board.
-
----		
-		
-TODO:
-
-
-	visualization generics
-
-	BOUNCING BALLS
-		see Bouncing_Balls_ex.pde
-
-	
-
-	Arduino Sensors to use?:
-
-		joystick - hold
-		
-		~~temp~~ - background colors (hue/sat/etc)
-		~~potentiometer~~ - alpha of circles (or speed of circles)
-		~~photo-resistor~~ - quantity of circles
-		
-		2x tilt sensor -  hold modify pitch/something of input
-		
-		platform for interactive sensors
-
-	Processing
-
-		minim library for audio analysis
-		Use microphone on laptop for input
-		
-		MINIM
-		AudioRecorder
-		AudioInput
-		BeatDetect
-		FFT (maybe)
+Processing now reads data directly from Arduino board. Although Processing is OS agnostic, the port for I/O reading must be specified prior to running (main.pde, line 31. See output from line 30).
