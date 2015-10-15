@@ -3,8 +3,7 @@
 
 ### UPDATE
 A newer version of this project is [EVA](https://github.com/DEGoodman/EVA). It uses the internet instead of a physical sensor array. It can be run from any laptop with an internet connection.
-
-
+---
 This is an environmental interpreter.
 
 The system reads and interprets environmental data from Arduino, and passes it to Processing. Processing uses onboard microphone to pick up audio, and is displayed visually. Visual characteristics are determined by environmental data.
