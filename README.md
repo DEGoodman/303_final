@@ -9,6 +9,9 @@ This is an environmental interpreter.
 
 The system reads and interprets environmental data from Arduino, and passes it to Processing. Processing uses onboard microphone to pick up audio, and is displayed visually. Visual characteristics are determined by environmental data.
 
+Example visual:
+![Example Visual](http://i.imgur.com/rKop8io.png)
+
 
 Arduino runs StandardFirmata program.
 Processing now reads data directly from Arduino board. 
