@@ -13,4 +13,4 @@ The system reads and interprets environmental data from Arduino, and passes it t
 Arduino runs StandardFirmata program.
 Processing now reads data directly from Arduino board. 
 ### Note:
-Although Processing is OS agnostic, the port for I/O reading must be specified prior to running (main.pde, line 31. See output from line 30).
+Although Processing is OS agnostic, the port for I/O reading must be specified prior to running ([main.pde, line 31](https://github.com/DEGoodman/environmental-visualization-system/blob/master/Processing/main/main.pde#L31). See output from [line 30](https://github.com/DEGoodman/environmental-visualization-system/blob/master/Processing/main/main.pde#L30)).
